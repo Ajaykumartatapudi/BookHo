@@ -66,7 +66,7 @@ function App() {
         <Footer />
       </Router>
 
-      {/* ✅ Footer layout fix style */}
+      {/* ✅ Footer layout fix styles */}
       <style>{`
         html, body {
           height: 100%;
