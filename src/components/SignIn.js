@@ -1,21 +1,28 @@
-// src/components/SignIn.js
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { HotelContextData } from "../context/HotelContext";
 import "bootstrap/dist/css/bootstrap.min.css";
-import backgroundImage from "../Images/signin.jpg"; // Use same background for consistency
+import backgroundImage from "../Images/signin.jpg";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(HotelContextData); // ✅ access context
 
   const handleLogin = (e) => {
     e.preventDefault();
-    alert(`Logged in with ${email}`);
+    if (email && password) {
+      setIsLoggedIn(true); // ✅ update login state
+      alert(`Welcome ${email}`);
+      navigate("/dashboard"); // redirect to dashboard
+    } else {
+      alert("Please enter valid credentials");
+    }
   };
 
   const handleSignUpRedirect = () => {
-    navigate("/signup"); // ✅ Redirects to Signup page
+    navigate("/signup");
   };
 
   return (
@@ -30,7 +37,6 @@ const SignIn = () => {
         alignItems: "center",
       }}
     >
-      {/* Dark overlay */}
       <div
         style={{
           position: "absolute",
@@ -55,18 +61,13 @@ const SignIn = () => {
                 boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
               }}
             >
-              {/* ✅ Added heading and tagline */}
               <div className="text-center mb-4">
                 <h3 className="fw-bold" style={{ color: "#0d6efd" }}>
                   BookHo.com
                 </h3>
                 <h5 className="mt-2">Sign in or create an account</h5>
-                <p className="text-muted" style={{ fontSize: "14px" }}>
-                  Unlock a world of stays with one account across BookHo
-                </p>
               </div>
 
-              {/* Sign-in Form */}
               <form onSubmit={handleLogin}>
                 <div className="mb-3">
                   <input
@@ -93,7 +94,6 @@ const SignIn = () => {
                 </button>
               </form>
 
-              {/* Redirect to Sign Up */}
               <p className="text-center" style={{ fontSize: "14px" }}>
                 Don’t have an account?{" "}
                 <span
