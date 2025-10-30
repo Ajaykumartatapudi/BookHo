@@ -20,6 +20,8 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import Dashboard from "./components/Dashboard";
 import Cart from "./components/Cart";
 import BookingSuccess from "./components/BookingSuccess";
+import PaymentPage from "./components/PaymentPage"; // ✅ New import
+
 import { HotelContext } from "./context/HotelContext";
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
         <Navbar />
         <main>
           <Routes>
+            {/* 🏠 Home Page */}
             <Route
               path="/"
               element={
@@ -38,6 +41,8 @@ function App() {
                 </>
               }
             />
+
+            {/* 📄 Info Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/support" element={<SupportPage />} />
@@ -45,18 +50,23 @@ function App() {
             <Route path="/guidelines" element={<GuideLines />} />
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+
+            {/* 🏨 Hotels */}
             <Route path="/hotels/MumbaiHotels" element={<MumbaiHotels />} />
             <Route path="/hotels/AndhraHotels" element={<AndhraHotels />} />
             <Route path="/hotels/TelanganaHotels" element={<TelanganaHotels />} />
+
+            {/* 🛒 Booking Flow */}
             <Route path="/cart" element={<Cart />} />
             <Route path="/success" element={<BookingSuccess />} />
+            <Route path="/payment" element={<PaymentPage />} /> {/* ✅ New route added */}
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
         <Footer />
       </Router>
 
-      {/* ✅ Footer layout fix styles */}
+      {/* ✅ Footer layout fix style */}
       <style>{`
         html, body {
           height: 100%;
