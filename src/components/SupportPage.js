@@ -35,30 +35,67 @@ const SupportPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          overflowY: "auto",
+          padding: "20px 0",
         }}
       >
         <Container>
           <Row>
             {/* FAQ Section */}
             <Col md={6}>
-              <h2>Frequently Asked Questions</h2>
+              <h2 className="mb-4 text-white fw-bold">Frequently Asked Questions</h2>
               <Accordion defaultActiveKey="0" style={{ color: "black", background: "white", borderRadius: "5px" }}>
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header>How can I book a room?</Accordion.Header>
+                  <Accordion.Header>
+                    <strong>How can I book a room?</strong>
+                  </Accordion.Header>
                   <Accordion.Body>
                     You can book a room using our booking form or by calling our support team.
                   </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="1">
-                  <Accordion.Header>What payment methods are accepted?</Accordion.Header>
+                  <Accordion.Header>
+                    <strong>What payment methods are accepted?</strong>
+                  </Accordion.Header>
                   <Accordion.Body>
                     We accept credit/debit cards, online wallets, and bank transfers.
                   </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="2">
-                  <Accordion.Header>Can I cancel my booking?</Accordion.Header>
+                  <Accordion.Header>
+                    <strong>Can I cancel my booking?</strong>
+                  </Accordion.Header>
                   <Accordion.Body>
                     Yes, cancellations are possible. Please check our cancellation policy for details.
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>
+                    <strong>Do you offer any discounts or promotions?</strong>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    Yes, we often have seasonal offers and special discounts. Check our website or subscribe to our newsletter for updates.
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="4">
+                  <Accordion.Header>
+                    <strong>What should I do if I face issues during booking?</strong>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    If you encounter any issues, please contact our support team using the form on this page or call our helpline.
+                  </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="5">
+                  <Accordion.Header>
+                    <strong>Is my personal information safe with BookHo?</strong>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    Yes, your data is fully encrypted and protected under our privacy policy.
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
@@ -75,7 +112,7 @@ const SupportPage = () => {
                   marginTop: "20px",
                 }}
               >
-                <h2>Contact Support</h2>
+                <h2 className="fw-bold mb-3">Contact Support</h2>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-3" controlId="formName">
                     <Form.Label>Name</Form.Label>
@@ -108,7 +145,7 @@ const SupportPage = () => {
                       required
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit" className="w-100">
+                  <Button variant="primary" type="submit" className="w-100 fw-bold">
                     Submit
                   </Button>
                 </Form>

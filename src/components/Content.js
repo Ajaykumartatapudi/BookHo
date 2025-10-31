@@ -83,18 +83,22 @@ const Content = () => {
         </div>
       </div>
 
-      {/* Zoom on hover style */}
+      {/* ✅ Fixed & Improved Zoom on hover style */}
       <style>{`
         .zoom-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         .zoom-card:hover {
-          transform: scale(1.0s);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+          transform: scale(1.05);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+        }
+        .card-title {
+          font-weight: 600;
         }
       `}</style>
     </main>
   );
 };
 
-export default Content;
+export default Content

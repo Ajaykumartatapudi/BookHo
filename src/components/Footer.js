@@ -1,76 +1,111 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Footer = () => {
   return (
     <>
-      <footer className="footer bg-dark text-light py-5 ">
+      <footer className="footer bg-dark text-light py-5">
         <div className="container">
-          <div className="row justify-content-center text-center text-md-start">
+          <div className="row text-center text-md-start justify-content-between align-items-start">
             {/* Top Destinations */}
-            <div className="col-md-3 col-sm-6 mb-4">
+            <div className="col-12 col-sm-6 col-md-3 mb-4 footer-col">
               <h5 className="footer-heading">Top Destinations</h5>
               <ul className="footer-list">
-                <li>Hotels in United States of America</li>
-                <li>Hotels in Andhra Pradesh</li>
-                <li>Hotels in Telangana</li>
-                <li>Hotels in Kerala</li>
+                <li>
+                  <Link to="/hotels/MumbaiHotels" className="footer-link">
+                    Hotels in Mumbai
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/hotels/AndhraHotels" className="footer-link">
+                    Hotels in Andhra Pradesh
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/hotels/TelanganaHotels" className="footer-link">
+                    Hotels in Telangana
+                  </Link>
+                </li>
               </ul>
             </div>
 
             {/* Support & FAQs */}
-            <div className="col-md-3 col-sm-6 mb-4">
+            <div className="col-12 col-sm-6 col-md-3 mb-4 footer-col">
               <h5 className="footer-heading">Support & FAQs</h5>
               <ul className="footer-list">
-                <li>Your bookings</li>
-                <li>FAQs</li>
-                <li>Contact us</li>
-                <li>Review a property</li>
-                <li>Policies</li>
-                <li>Terms & Conditions</li>
-                <li>Privacy</li>
-                <li>Cookies</li>
+                <li>
+                  <Link to="/support" className="footer-link">
+                    FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/support" className="footer-link">
+                    Contact Us
+                  </Link>
+                </li>
               </ul>
             </div>
 
             {/* Other Information */}
-            <div className="col-md-3 col-sm-6 mb-4">
+            <div className="col-12 col-sm-6 col-md-3 mb-4 footer-col">
               <h5 className="footer-heading">Other Information</h5>
               <ul className="footer-list">
-                <li>About Us</li>
-                <li>Careers</li>
-                <li>Hotels near me</li>
-                <li>Travel Guides</li>
-                <li>Vacation rentals</li>
-                <li>One Key credit cards</li>
-                <li>Content guidelines and reporting content</li>
+                <li>
+                  <Link to="/about" className="footer-link">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/guidelines" className="footer-link">
+                    Content Guidelines
+                  </Link>
+                </li>
               </ul>
             </div>
 
-            {/* New Section */}
-            <div className="col-md-3 col-sm-6 mb-4">
-              <h5 className="footer-heading">For Suppliers, Affiliates and the Media</h5>
+            {/* Policies */}
+            <div className="col-12 col-sm-6 col-md-3 mb-4 footer-col">
+              <h5 className="footer-heading">Policies</h5>
               <ul className="footer-list">
-                <li>Affiliate with us</li>
-                <li>Expedia Partner Solutions</li>
-                <li>Newsroom</li>
-                <li>Promote with Us</li>
-                <li>Travel Agents</li>
+                <li>
+                  <Link to="/terms" className="footer-link">
+                    Terms & Conditions
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/privacy" className="footer-link">
+                    Privacy Policy
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
 
           <hr className="border-secondary my-4" />
 
+          {/* Copyright */}
           <div className="text-center">
             <p className="mb-0 small">
               © {new Date().getFullYear()} <strong>BookHo.com</strong> — All rights reserved.
             </p>
+            <div className="mt-2">
+              <Link to="/privacy" className="footer-mini-link mx-2">
+                Privacy Policy
+              </Link>
+              |
+              <Link to="/terms" className="footer-mini-link mx-2">
+                Terms
+              </Link>
+              |
+              <Link to="/guidelines" className="footer-mini-link mx-2">
+                Guidelines
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Inline Custom Styles */}
       <style>{`
         .footer {
           background-color: #111;
@@ -94,11 +129,27 @@ const Footer = () => {
 
         .footer-list li {
           margin-bottom: 0.5rem;
-          cursor: pointer;
-          transition: color 0.2s ease-in-out;
         }
 
-        .footer-list li:hover {
+        .footer-link {
+          color: #ccc;
+          text-decoration: none;
+          transition: color 0.3s ease-in-out;
+          display: inline-block;
+        }
+
+        .footer-link:hover {
+          color: #f8d210;
+          transform: translateX(4px);
+        }
+
+        .footer-mini-link {
+          color: #aaa;
+          text-decoration: none;
+          font-size: 0.9rem;
+        }
+
+        .footer-mini-link:hover {
           color: #f8d210;
         }
 
@@ -106,13 +157,31 @@ const Footer = () => {
           border-color: #444;
         }
 
-        @media (max-width: 768px) {
+        /* Equal spacing and center on smaller devices */
+        .footer-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        @media (min-width: 768px) {
+          .footer-col {
+            align-items: flex-start;
+          }
+        }
+
+        @media (max-width: 576px) {
           .footer {
             text-align: center;
           }
 
           .footer-heading {
             margin-top: 1rem;
+          }
+
+          .footer-mini-link {
+            display: inline-block;
+            margin: 0.3rem;
           }
         }
       `}</style>
