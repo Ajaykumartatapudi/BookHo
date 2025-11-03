@@ -5,16 +5,64 @@ import Hyatt from "../Images/Hyatt.jpg";
 import Marriot from "../Images/Marriot.jpg";
 import Obero from "../Images/Obero.jpg";
 import Grand from "../Images/Grand.jpg";
-import Taj from "../Images/Taj.jpg"; // 🆕 Add a new image for the extra hotel
-import { HotelContextData } from "../context/HotelContext"; // ✅ use this import
+import Taj from "../Images/Taj.jpg";
+import { HotelContextData } from "../context/HotelContext";
 
 const hotels = [
-  { id: 1, name: "ITC Kakatiya", location: "Hyderabad", price: 7000, img: ITC },
-  { id: 2, name: "Hyatt Place", location: "Banjara Hills", price: 6000, img: Hyatt },
-  { id: 3, name: "Marriott Hotel", location: "Begumpet", price: 8000, img: Marriot },
-  { id: 4, name: "The Oberoi", location: "Gachibowli", price: 9000, img: Obero },
-  { id: 5, name: "Grand Hotel", location: "Madhapur", price: 5000, img: Grand },
-  { id: 6, name: "Taj Deccan", location: "Jubilee Hills", price: 9500, img: Taj }, // 🆕 Added card
+  {
+    id: 1,
+    name: "ITC Kakatiya",
+    location: "Hyderabad",
+    price: 7000,
+    img: ITC,
+    rating: 4.6,
+    services: ["Free Wi-Fi", "Breakfast Included", "Pool Access", "Gym"],
+  },
+  {
+    id: 2,
+    name: "Hyatt Place",
+    location: "Banjara Hills",
+    price: 6000,
+    img: Hyatt,
+    rating: 4.4,
+    services: ["Gym", "Spa", "Wi-Fi", "Bar"],
+  },
+  {
+    id: 3,
+    name: "Marriott Hotel",
+    location: "Begumpet",
+    price: 8000,
+    img: Marriot,
+    rating: 4.7,
+    services: ["Free Breakfast", "Parking", "Pool", "Restaurant"],
+  },
+  {
+    id: 4,
+    name: "The Oberoi",
+    location: "Gachibowli",
+    price: 9000,
+    img: Obero,
+    rating: 4.8,
+    services: ["Spa", "Fine Dining", "Wi-Fi", "Airport Shuttle"],
+  },
+  {
+    id: 5,
+    name: "Grand Hotel",
+    location: "Madhapur",
+    price: 5000,
+    img: Grand,
+    rating: 4.3,
+    services: ["Free Wi-Fi", "Breakfast", "Parking"],
+  },
+  {
+    id: 6,
+    name: "Taj Deccan",
+    location: "Jubilee Hills",
+    price: 9500,
+    img: Taj,
+    rating: 4.9,
+    services: ["Luxury Suite", "Pool", "Spa", "Airport Pickup"],
+  },
 ];
 
 const Dashboard = () => {
@@ -23,7 +71,7 @@ const Dashboard = () => {
 
   const handleSelectHotel = (hotel) => {
     setSelectedHotel(hotel);
-    navigate("/cart");
+    navigate("/book-hotel"); 
   };
 
   return (
@@ -32,17 +80,23 @@ const Dashboard = () => {
       <div className="row">
         {hotels.map((hotel) => (
           <div key={hotel.id} className="col-md-4 mb-4">
-            <div className="card shadow-sm zoom-card h-100">
+            <div className="card shadow-sm zoom-card h-100 border-0">
               <img
                 src={hotel.img}
                 className="card-img-top"
                 alt={hotel.name}
-                style={{ height: "220px", objectFit: "cover" }}
+                style={{
+                  height: "220px",
+                  objectFit: "cover",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                }}
               />
               <div className="card-body text-center">
                 <h5 className="card-title fw-bold">{hotel.name}</h5>
                 <p className="text-muted mb-1">{hotel.location}</p>
-                <p className="fw-semibold">₹{hotel.price}/night</p>
+                <p className="fw-semibold text-success">₹{hotel.price}/night</p>
+                <p className="text-warning mb-2">⭐ {hotel.rating}</p>
                 <button
                   className="btn btn-primary px-4"
                   onClick={() => handleSelectHotel(hotel)}

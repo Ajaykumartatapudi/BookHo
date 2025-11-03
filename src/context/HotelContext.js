@@ -1,11 +1,11 @@
-// src/context/HotelContext.js
 import React, { createContext, useState } from "react";
 
 const Context = createContext();
 
 const HotelContext = ({ children }) => {
   const [selectedHotel, setSelectedHotel] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ new state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [bookingDetails, setBookingDetails] = useState(null); // ✅ New
 
   return (
     <Context.Provider
@@ -13,7 +13,9 @@ const HotelContext = ({ children }) => {
         selectedHotel,
         setSelectedHotel,
         isLoggedIn,
-        setIsLoggedIn, // ✅ export setter too
+        setIsLoggedIn,
+        bookingDetails,
+        setBookingDetails,
       }}
     >
       {children}

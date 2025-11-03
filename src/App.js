@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -18,20 +18,25 @@ import TermsAndConditions from "./components/TermsAndConditions";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 
 import Dashboard from "./components/Dashboard";
+import BookingForm from "./components/BookingForm";
 import Cart from "./components/Cart";
 import BookingSuccess from "./components/BookingSuccess";
-import PaymentPage from "./components/PaymentPage"; // ✅ New import
+import PaymentPage from "./components/PaymentPage";
 
 import { HotelContext } from "./context/HotelContext";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <HotelContext>
       <Router>
-        <Navbar />
-        <main>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+
+        {/* ✅ Add spacing for all pages */}
+        <main className="pb-5 pt-4" style={{ minHeight: "85vh" }}>
           <Routes>
-            {/* 🏠 Home Page */}
+            {/* ✅ Home Page */}
             <Route
               path="/"
               element={
@@ -42,51 +47,36 @@ function App() {
               }
             />
 
-            {/* 📄 Info Pages */}
+            {/* ✅ Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/support" element={<SupportPage />} />
-            <Route path="/signin" element={<SignIn />} />
             <Route path="/guidelines" element={<GuideLines />} />
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 
-            {/* 🏨 Hotels */}
+            {/* ✅ Authentication */}
+            <Route
+              path="/signin"
+              element={<SignIn setIsLoggedIn={setIsLoggedIn} />}
+            />
+
+            {/* ✅ Hotels by Region */}
             <Route path="/hotels/MumbaiHotels" element={<MumbaiHotels />} />
             <Route path="/hotels/AndhraHotels" element={<AndhraHotels />} />
             <Route path="/hotels/TelanganaHotels" element={<TelanganaHotels />} />
 
-            {/* 🛒 Booking Flow */}
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/success" element={<BookingSuccess />} />
-            <Route path="/payment" element={<PaymentPage />} /> {/* ✅ New route added */}
+            {/* ✅ Booking Flow */}
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/book-hotel" element={<BookingForm />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/success" element={<BookingSuccess />} />
           </Routes>
         </main>
+
         <Footer />
       </Router>
-
-      {/* ✅ Footer layout fix styles */}
-      <style>{`
-        html, body {
-          height: 100%;
-          margin: 0;
-        }
-        #root {
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-        }
-        main {
-          flex: 1;
-        }
-        footer {
-          background-color: #f8f9fa;
-          text-align: center;
-          padding: 10px 0;
-          box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        }
-      `}</style>
     </HotelContext>
   );
 }

@@ -1,50 +1,105 @@
-import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 const PaymentPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const paymentMethod = location.state?.paymentMethod || "card";
+  const [loading, setLoading] = useState(false);
+
+  const handlePaymentSuccess = () => {
+    setLoading(true);
+
+    // Simulate payment process (1.5 seconds)
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/success");
+    }, 1500);
+  };
 
   return (
     <div className="container mt-5 text-center">
       <h2 className="fw-bold mb-4">💰 Complete Your Payment</h2>
-      <p className="text-muted">Selected Method: <strong>{paymentMethod.toUpperCase()}</strong></p>
+      <p className="text-muted">
+        Selected Method: <strong>{paymentMethod.toUpperCase()}</strong>
+      </p>
 
-      {/* ✅ Different payment UIs */}
-      {paymentMethod === "card" && (
-        <div className="payment-box">
-          <h5 className="fw-bold">💳 Card Payment</h5>
-          <input type="text" className="form-control mb-3" placeholder="Card Number" />
-          <input type="text" className="form-control mb-3" placeholder="Card Holder Name" />
-          <div className="d-flex gap-2 mb-3">
-            <input type="text" className="form-control" placeholder="MM/YY" />
-            <input type="text" className="form-control" placeholder="CVV" />
+      {/* ✅ Payment UI Sections */}
+      {!loading && (
+        <>
+          {paymentMethod === "card" && (
+            <div className="payment-box">
+              <h5 className="fw-bold">💳 Card Payment</h5>
+              <input type="text" className="form-control mb-3" placeholder="Card Number" />
+              <input type="text" className="form-control mb-3" placeholder="Card Holder Name" />
+              <div className="d-flex gap-2 mb-3">
+                <input type="text" className="form-control" placeholder="MM/YY" />
+                <input type="text" className="form-control" placeholder="CVV" />
+              </div>
+              <button
+                onClick={handlePaymentSuccess}
+                className="btn btn-success px-4"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Pay Now"}
+              </button>
+            </div>
+          )}
+
+          {paymentMethod === "upi" && (
+            <div className="payment-box">
+              <h5 className="fw-bold">📱 UPI Payment</h5>
+              <input type="text" className="form-control mb-3" placeholder="Enter UPI ID (e.g. name@upi)" />
+              <button
+                onClick={handlePaymentSuccess}
+                className="btn btn-success px-4"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Pay via UPI"}
+              </button>
+            </div>
+          )}
+
+          {paymentMethod === "cod" && (
+            <div className="payment-box">
+              <h5 className="fw-bold">💵 Cash on Delivery</h5>
+              <p>Your payment will be collected at check-in. Thank you!</p>
+              <button
+                onClick={handlePaymentSuccess}
+                className="btn btn-success px-4"
+                disabled={loading}
+              >
+                Confirm Booking
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ✅ Loading Animation */}
+      {loading && (
+        <div className="mt-5">
+          <div
+            className="spinner-border text-success"
+            style={{ width: "3rem", height: "3rem" }}
+            role="status"
+          >
+            <span className="visually-hidden">Processing...</span>
           </div>
-          <button className="btn btn-success px-4">Pay Now</button>
+          <p className="mt-3 fw-bold text-muted">Processing your payment...</p>
         </div>
       )}
 
-      {paymentMethod === "upi" && (
-        <div className="payment-box">
-          <h5 className="fw-bold">📱 UPI Payment</h5>
-          <input type="text" className="form-control mb-3" placeholder="Enter UPI ID (e.g. name@upi)" />
-          <button className="btn btn-success px-4">Pay via UPI</button>
+      {/* ✅ Back Button */}
+      {!loading && (
+        <div className="mt-4">
+          <Link to="/dashboard" className="btn btn-dark px-4">
+            Back to Dashboard
+          </Link>
         </div>
       )}
 
-      {paymentMethod === "cod" && (
-        <div className="payment-box">
-          <h5 className="fw-bold">💵 Cash on Delivery</h5>
-          <p>Your payment will be collected at check-in. Thank you!</p>
-          <button className="btn btn-success px-4">Confirm Booking</button>
-        </div>
-      )}
-
-      <div className="mt-4">
-        <Link to="/" className="btn btn-dark px-4">Back to Home</Link>
-      </div>
-
-      {/* ✅ Style */}
+      {/* ✅ Styling */}
       <style>{`
         .payment-box {
           background: #f8f9fa;
