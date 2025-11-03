@@ -55,7 +55,7 @@ function App() {
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 
-            {/* ✅ Authentication */}
+            {/* ✅ Authenticaton */}
             <Route
               path="/signin"
               element={<SignIn setIsLoggedIn={setIsLoggedIn} />}
