@@ -1,14 +1,15 @@
 import React, { createContext, useState } from "react";
 
-const Context = createContext();
+// Create Context
+const HotelContextData = createContext();
 
 const HotelContext = ({ children }) => {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [bookingDetails, setBookingDetails] = useState(null); // ✅ New
+  const [bookingDetails, setBookingDetails] = useState(null);
 
   return (
-    <Context.Provider
+    <HotelContextData.Provider
       value={{
         selectedHotel,
         setSelectedHotel,
@@ -19,8 +20,8 @@ const HotelContext = ({ children }) => {
       }}
     >
       {children}
-    </Context.Provider>
+    </HotelContextData.Provider>
   );
 };
 
-export { Context as HotelContextData, HotelContext };
+export { HotelContext, HotelContextData };

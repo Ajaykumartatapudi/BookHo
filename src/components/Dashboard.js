@@ -6,7 +6,7 @@ import Marriot from "../Images/Marriot.jpg";
 import Obero from "../Images/Obero.jpg";
 import Grand from "../Images/Grand.jpg";
 import Taj from "../Images/Taj.jpg";
-import { HotelContextData } from "../context/HotelContext";
+import { HotelContextData } from "../context/Hotelcontext";
 
 const hotels = [
   {

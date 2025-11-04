@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { HotelContextData } from "../context/HotelContext";
+import { HotelContextData } from "../context/Hotelcontext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import backgroundImage from "../Images/signin.jpg";
 

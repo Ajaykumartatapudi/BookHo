@@ -8,7 +8,7 @@ import {
   FaUserPlus,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { HotelContextData } from "../context/HotelContext";
+import { HotelContextData } from "../context/Hotelcontext"; // ✅ Make sure this matches your file name
 import logo2 from "../Images/logo2.png";
 
 const Navbar = () => {
@@ -17,12 +17,13 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem("userData");
     navigate("/signin");
   };
 
   return (
     <>
-      {/* 💅 Inline styles */}
+      {/* ✅ Embedded Style for brand name */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
 
@@ -39,31 +40,21 @@ const Navbar = () => {
         }
 
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-5px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 🌟 NavLink active color */
-        .nav-link {
-          color: #333;
-          transition: color 0.3s ease;
-        }
-
-        .nav-link.active {
-          color: #0ba4eb !important;
-        }
-
-        .nav-link:hover {
-          color: #007bff;
+          from {
+            opacity: 0;
+            transform: translateY(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
 
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-4">
         <div className="container-fluid">
-          <NavLink
-            className="navbar-brand fw-bold d-flex align-items-center"
-            to="/"
-          >
+          {/* ✅ Brand Logo and Name */}
+          <NavLink className="navbar-brand fw-bold d-flex align-items-center" to="/">
             <img
               src={logo2}
               alt="BookHo Logo"

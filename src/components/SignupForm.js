@@ -1,20 +1,40 @@
-// SignupForm.js
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import backgroundImage from "../Images/lobby.jpg"; // Replace with your image
+import backgroundImage from "../Images/lobby.jpg";
+import { HotelContextData } from "../context/Hotelcontext"; // ✅ Import Context
 
 const SignupForm = () => {
   const [phone, setPhone] = useState("");
-  const navigate = useNavigate(); // ✅ For navigation
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(HotelContextData); // ✅ Access context
 
-  const handleVerify = (e) => {
+  // ✅ Handle signup
+  const handleSignup = (e) => {
     e.preventDefault();
-    alert(`Verification code sent to ${phone}`);
+
+    if (!phone || !email || !password) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    // Save user data (simulate registration)
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ phone, email, password, isLoggedIn: true })
+    );
+
+    // Update global login state
+    setIsLoggedIn(true);
+
+    alert("Signup successful!");
+    navigate("/dashboard"); // ✅ redirect to dashboard
   };
 
   const handleSignInRedirect = () => {
-    navigate("/signin"); // ✅ Redirect to SignIn page
+    navigate("/signin");
   };
 
   return (
@@ -29,7 +49,7 @@ const SignupForm = () => {
         alignItems: "center",
       }}
     >
-      {/* Black overlay */}
+      {/* Overlay */}
       <div
         style={{
           position: "absolute",
@@ -43,16 +63,18 @@ const SignupForm = () => {
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         <div className="row">
-          <div className="col-md-6 d-flex flex-column justify-content-center text-white">
-            <h1 style={{ fontSize: "3rem", fontWeight: "700", lineHeight: "1.3" }}>
-              Welcome to Our  BookHo
+          {/* Left Text */}
+          <div className="col-md-6 text-white d-flex flex-column justify-content-center">
+            <h1 className="fw-bold" style={{ fontSize: "3rem" }}>
+              Welcome to BookHo
             </h1>
-            <p style={{ fontSize: "1.25rem", lineHeight: "1.6", marginTop: "10px" }}>
-              Book your stay, explore amenities, and enjoy a luxurious experience.
-              Join us today and make your stay unforgettable!
+            <p className="fs-5 mt-3">
+              Book your stay, explore amenities, and enjoy a luxurious
+              experience. Join us today and make your stay unforgettable!
             </p>
           </div>
-          {/* Right form */}
+
+          {/* Right Form */}
           <div className="col-md-6 d-flex justify-content-center">
             <div
               style={{
@@ -64,8 +86,8 @@ const SignupForm = () => {
                 boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
               }}
             >
-              <h2 className="text-center mb-4">Login / Signup</h2>
-              <form onSubmit={handleVerify}>
+              <h2 className="text-center mb-4">Create Account</h2>
+              <form onSubmit={handleSignup}>
                 <div className="mb-3">
                   <input
                     type="tel"
@@ -76,21 +98,42 @@ const SignupForm = () => {
                     required
                   />
                 </div>
+                <div className="mb-3">
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Create a password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
                 <button type="submit" className="btn btn-primary w-100 mb-3">
-                  Verify
+                  Sign Up
                 </button>
               </form>
+
               <p className="text-center" style={{ fontSize: "14px" }}>
-                Prefer to Sign in with password instead?{" "}
+                Already have an account?{" "}
                 <span
                   style={{
                     color: "#0d6efd",
                     cursor: "pointer",
                     textDecoration: "underline",
                   }}
-                  onClick={handleSignInRedirect} // ✅ Navigate on click
+                  onClick={handleSignInRedirect}
                 >
-                  Click here
+                  Sign In
                 </span>
               </p>
             </div>

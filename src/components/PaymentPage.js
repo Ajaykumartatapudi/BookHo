@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const PaymentPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const paymentMethod = location.state?.paymentMethod || "card";
   const [loading, setLoading] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState("");
+
+  // States for each payment type
+  const [upiId, setUpiId] = useState("");
+  const [cardDetails, setCardDetails] = useState({
+    number: "",
+    name: "",
+    expiry: "",
+    cvv: "",
+  });
+  const [aadhar, setAadhar] = useState("");
 
   const handlePaymentSuccess = () => {
     setLoading(true);
-
-    // Simulate payment process (1.5 seconds)
     setTimeout(() => {
       setLoading(false);
       navigate("/success");
@@ -20,63 +27,136 @@ const PaymentPage = () => {
   return (
     <div className="container mt-5 text-center">
       <h2 className="fw-bold mb-4">💰 Complete Your Payment</h2>
-      <p className="text-muted">
-        Selected Method: <strong>{paymentMethod.toUpperCase()}</strong>
-      </p>
+      <p className="text-muted">Select your preferred payment method below</p>
 
-      {/* ✅ Payment UI Sections */}
       {!loading && (
         <>
-          {paymentMethod === "card" && (
+          {/* Payment Method Options */}
+          <div className="d-flex justify-content-center gap-3 mb-4 flex-wrap">
+            <button
+              className={`btn ${selectedMethod === "card" ? "btn-primary" : "btn-outline-primary"}`}
+              onClick={() => setSelectedMethod("card")}
+            >
+              💳 Card
+            </button>
+            <button
+              className={`btn ${selectedMethod === "upi" ? "btn-success" : "btn-outline-success"}`}
+              onClick={() => setSelectedMethod("upi")}
+            >
+              📱 UPI
+            </button>
+            <button
+              className={`btn ${selectedMethod === "cash" ? "btn-warning" : "btn-outline-warning"}`}
+              onClick={() => setSelectedMethod("cash")}
+            >
+              💵 Cash on Delivery
+            </button>
+          </div>
+
+          {/* CARD Payment Form */}
+          {selectedMethod === "card" && (
             <div className="payment-box">
               <h5 className="fw-bold">💳 Card Payment</h5>
-              <input type="text" className="form-control mb-3" placeholder="Card Number" />
-              <input type="text" className="form-control mb-3" placeholder="Card Holder Name" />
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="Card Number"
+                value={cardDetails.number}
+                onChange={(e) =>
+                  setCardDetails({ ...cardDetails, number: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="Card Holder Name"
+                value={cardDetails.name}
+                onChange={(e) =>
+                  setCardDetails({ ...cardDetails, name: e.target.value })
+                }
+              />
               <div className="d-flex gap-2 mb-3">
-                <input type="text" className="form-control" placeholder="MM/YY" />
-                <input type="text" className="form-control" placeholder="CVV" />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="MM/YY"
+                  value={cardDetails.expiry}
+                  onChange={(e) =>
+                    setCardDetails({ ...cardDetails, expiry: e.target.value })
+                  }
+                />
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="CVV"
+                  value={cardDetails.cvv}
+                  onChange={(e) =>
+                    setCardDetails({ ...cardDetails, cvv: e.target.value })
+                  }
+                />
               </div>
               <button
                 onClick={handlePaymentSuccess}
-                className="btn btn-success px-4"
-                disabled={loading}
+                className="btn btn-primary px-4"
               >
-                {loading ? "Processing..." : "Pay Now"}
+                Pay ₹1,500 via Card
               </button>
             </div>
           )}
 
-          {paymentMethod === "upi" && (
+          {/* UPI Payment Form */}
+          {selectedMethod === "upi" && (
             <div className="payment-box">
               <h5 className="fw-bold">📱 UPI Payment</h5>
-              <input type="text" className="form-control mb-3" placeholder="Enter UPI ID (e.g. name@upi)" />
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="Enter UPI ID (e.g. name@upi)"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+              />
               <button
                 onClick={handlePaymentSuccess}
                 className="btn btn-success px-4"
-                disabled={loading}
               >
-                {loading ? "Processing..." : "Pay via UPI"}
+                Pay ₹1,500 via UPI
               </button>
             </div>
           )}
 
-          {paymentMethod === "cod" && (
+          {/* CASH Payment Form */}
+          {selectedMethod === "cash" && (
             <div className="payment-box">
               <h5 className="fw-bold">💵 Cash on Delivery</h5>
-              <p>Your payment will be collected at check-in. Thank you!</p>
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="Enter Aadhaar Number"
+                value={aadhar}
+                onChange={(e) => setAadhar(e.target.value)}
+              />
+              <p className="text-muted">
+                Your payment will be collected at check-in.
+              </p>
               <button
                 onClick={handlePaymentSuccess}
-                className="btn btn-success px-4"
-                disabled={loading}
+                className="btn btn-warning px-4"
               >
-                Confirm Booking
+                Confirm Cash Booking
               </button>
             </div>
           )}
+
+          {/* Back Button */}
+          <div className="mt-4">
+            <Link to="/dashboard" className="btn btn-dark px-4">
+              Back to Dashboard
+            </Link>
+          </div>
         </>
       )}
 
-      {/* ✅ Loading Animation */}
+      {/* Loading Spinner */}
       {loading && (
         <div className="mt-5">
           <div
@@ -90,16 +170,7 @@ const PaymentPage = () => {
         </div>
       )}
 
-      {/* ✅ Back Button */}
-      {!loading && (
-        <div className="mt-4">
-          <Link to="/dashboard" className="btn btn-dark px-4">
-            Back to Dashboard
-          </Link>
-        </div>
-      )}
-
-      {/* ✅ Styling */}
+      {/* Styles */}
       <style>{`
         .payment-box {
           background: #f8f9fa;
@@ -108,6 +179,10 @@ const PaymentPage = () => {
           max-width: 400px;
           margin: 20px auto;
           box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+          transition: 0.3s;
+        }
+        .payment-box:hover {
+          transform: scale(1.02);
         }
         input {
           border-radius: 8px;

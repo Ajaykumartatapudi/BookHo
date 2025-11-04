@@ -1,7 +1,7 @@
 // src/components/BookingForm.js
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HotelContextData } from "../context/HotelContext";
+import { HotelContextData } from "../context/Hotelcontext";
 
 const BookingForm = () => {
   const { selectedHotel } = useContext(HotelContextData);

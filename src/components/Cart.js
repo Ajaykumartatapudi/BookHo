@@ -1,7 +1,7 @@
 // src/components/Cart.js
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { HotelContextData } from "../context/HotelContext";
+import { HotelContextData } from "../context/Hotelcontext";
 
 const Cart = () => {
   const { selectedHotel } = useContext(HotelContextData);

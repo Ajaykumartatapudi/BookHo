@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -8,32 +8,24 @@ import About from "./components/About";
 import SignupForm from "./components/SignupForm";
 import SupportPage from "./components/SupportPage";
 import SignIn from "./components/SignIn";
-
 import MumbaiHotels from "./components/MumbaiHotels";
 import AndhraHotels from "./components/AndhraHotels";
 import TelanganaHotels from "./components/TelanganaHotels";
-
 import GuideLines from "./components/GuideLines";
 import TermsAndConditions from "./components/TermsAndConditions";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-
 import Dashboard from "./components/Dashboard";
 import BookingForm from "./components/BookingForm";
 import Cart from "./components/Cart";
 import BookingSuccess from "./components/BookingSuccess";
 import PaymentPage from "./components/PaymentPage";
-
-import { HotelContext } from "./context/HotelContext";
+import { HotelContext } from "./context/Hotelcontext"; // ✅ Correct import
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
     <HotelContext>
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-
-        {/* ✅ Add spacing for all pages */}
+        <Navbar />
         <main className="pb-5 pt-4" style={{ minHeight: "85vh" }}>
           <Routes>
             {/* ✅ Home Page */}
@@ -55,11 +47,8 @@ function App() {
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
 
-            {/* ✅ Authenticaton */}
-            <Route
-              path="/signin"
-              element={<SignIn setIsLoggedIn={setIsLoggedIn} />}
-            />
+            {/* ✅ Authentication */}
+            <Route path="/signin" element={<SignIn />} />
 
             {/* ✅ Hotels by Region */}
             <Route path="/hotels/MumbaiHotels" element={<MumbaiHotels />} />
@@ -74,7 +63,6 @@ function App() {
             <Route path="/success" element={<BookingSuccess />} />
           </Routes>
         </main>
-
         <Footer />
       </Router>
     </HotelContext>
