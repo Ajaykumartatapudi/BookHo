@@ -26,7 +26,7 @@ function App() {
     <HotelContext>
       <Router>
         <Navbar />
-        <main className="pb-5 pt-4" style={{ minHeight: "85vh" }}>
+        <main  style={{ minHeight: "85vh" }}>
           <Routes>
             {/* ✅ Home Page */}
             <Route
